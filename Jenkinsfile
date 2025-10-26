@@ -1,29 +1,23 @@
 pipeline {
     agent any
-    
-    stages {
-        stage('Checkout') {
-            when {
-                branch 'main'  
-            }
-            steps {
-                checkout scm
-            }
-        }
 
-        stage('Build the project') {
-            when {
-                branch 'main'
-            }
+    stages {
+        stage('Checkout code') {
             steps {
-                bat 'dotnet build'
+                git branch: 'main', url: 'https://github.com/venchev70/SEDO_Regular-Exam-3.git'
             }
         }
-        
-        stage('Run all tests') {
-            when {
-                branch 'main'
+        stage('Restore dependencies') {
+            steps {
+                bat 'dotnet restore'
             }
+        }
+        stage('Install dependencies') {
+            steps {
+                bat 'dotnet build --no-restore'
+            }
+        }
+        stage('Test') {
             steps {
                 bat 'dotnet test --no-build'
             }
