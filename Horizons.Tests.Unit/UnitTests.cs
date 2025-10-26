@@ -106,7 +106,7 @@ namespace Horizons.UnitTests
 
             var model = viewResult.Model as DestinationEditViewModel;
             Assert.IsNotNull(model);
-            Assert.AreEqual("Test Destination1", model.Name);
+            Assert.AreEqual("Test Destination", model.Name);
         }
 
         [Test]
